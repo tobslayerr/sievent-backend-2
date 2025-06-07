@@ -45,10 +45,9 @@ app.use("/api/qr", qrRouter);
 
 app.use(errorHandler);
 
-app.listen(port, ()=> {
-        console.log(Server running on port ${port});
-        console.log('Swagger UI hosted with Vercel');
-    }       
-);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+  console.log('Swagger UI hosted with Vercel');
+});
 
 export default app;
