@@ -28,7 +28,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({origin: allowedOrigins, credentials: true}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.options("*", cors({ origin: allowedOrigins, credentials: true }));
 
 // API ENDPOINT
 app.get('/', (req, res)=> res.send("API Works"));
@@ -47,7 +46,7 @@ app.use("/api/qr", qrRouter);
 app.use(errorHandler);
 
 app.listen(port, ()=> {
-        console.log(`Server running on port ${port}`);
+        console.log(Server running on port ${port});
         console.log('Swagger UI hosted with Vercel');
     }       
 );
