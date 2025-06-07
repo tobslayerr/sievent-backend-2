@@ -16,7 +16,7 @@ const userAuth = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Decoded JWT:", decoded);
 
-    const user = await userModel.findById(decoded.id).select("-password ");//Hindari kirim password, Memastikan isSiCreator ada
+    const user = await userModel.findById(decoded.id).select("-password");
 
     if (!user) {
       return res.status(401).json({
