@@ -28,6 +28,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({origin: allowedOrigins, credentials: true}));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.options("*", cors({ origin: allowedOrigins, credentials: true }));
 
 // API ENDPOINT
 app.get('/', (req, res)=> res.send("API Works"));
