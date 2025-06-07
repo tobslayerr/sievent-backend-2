@@ -2,8 +2,12 @@ import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 
 const userAuth = async (req, res, next) => {
+  // Lewatkan request OPTIONS (preflight)
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   try {
-    
     const { token } = req.cookies;
 
     if (!token) {
@@ -14,9 +18,7 @@ const userAuth = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded JWT:", decoded);
-
-    const user = await userModel.findById(decoded.id).select("-password ");//Hindari kirim password, Memastikan isSiCreator ada
+    const user = await userModel.findById(decoded.id).select("-password");
 
     if (!user) {
       return res.status(401).json({
@@ -24,8 +26,6 @@ const userAuth = async (req, res, next) => {
         message: "User not found.",
       });
     }
-    console.log("User is:", { id: user._id, isSiCreator: user.isSiCreator });
-
 
     req.user = {
       id: user._id,
@@ -41,4 +41,4 @@ const userAuth = async (req, res, next) => {
   }
 };
 
-export default userAuth;
+export default userAuth
